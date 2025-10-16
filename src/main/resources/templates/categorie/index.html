@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Numans&display=swap" rel="stylesheet">
+    <!-- bootstrap CSS -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <!-- app CSS -->
+    <link rel="stylesheet" th:href="@{/app.css}">
+    <!-- titolo -->
+    <title>Giull's Travells</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav th:replace="navbar :: navbar('Categorie')"></nav>
+    <!-- /navbar -->
+    <div class="container bg-white shadow-lg mt-5 py-5 px-5 rounded-3">
+        <div class="content">
+            <!-- h1 -->
+            <h2 class="text-center mb-5 numans-regular">Categorie</h2>
+            <hr />
+            <!-- messaggio successo creazione -->
+            <th:block th:if="${successMessage != null}">
+                <div class="alert alert-success alert-dismissible fade show mt-3 text-center" role="alert">
+                    <span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
+            <!-- messaggio successo modifica -->
+            <th:block th:if="${successEditMessage != null}">
+                <div class="alert alert-success alert-dismissible fade show mt-3 text-center" role="alert">
+                    <span th:text="${successEditMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
+            <th:block th:if="${errorMessage != null}">
+                <div class="alert alert-danger alert-dismissible fade show mt-3 text-center" role="alert">
+                    <span th:text="${errorMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
+            <!-- button creazione categoria -->
+            <a th:href="@{/giullstravells/categorie/create}"
+                class="btn btn-outline-success mt-5 mb-4 shadow d-inline-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>
+                <span class="ms-2">Crea una nuova categoria</span>
+            </a>
+            <!-- tabella -->
+            <div th:unless="${listaCategorie.size > 0}" class="alert alert-primary text-center shadow" role="alert">Nessuna Categoria trovata</div>
+            <table th:if="${listaCategorie.size > 0}"
+                class="table table-light table-hover shadow-lg align-middle">
+                <thead>
+                    <tr>
+                        <!-- contatore -->
+                        <th scope="col"></th>
+                        <!-- nome -->
+                        <th scope="col">Titolo</th>
+                        <!-- dettagli -->
+                        <th scope="col">Dettagli</th>
+                        <!-- edit -->
+                        <th scope="col">Modifica</th>
+                        <!-- delete -->
+                        <th scope="col">Elimina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item, iterStat : ${listaCategorie}">
+                        <!-- id -->
+                        <th scope="row" th:text="${iterStat.count}"></th>
+                        <!-- nome -->
+                        <td th:text="${item.nome}"></td>
+                        <!-- show -->
+                        <td>
+                            <a th:href="@{|/giullstravells/categorie/show/${item.id}|}" type="button"
+                                class="btn btn-sm btn-outline-primary shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-book" viewBox="0 0 16 16">
+                                    <path
+                                        d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
+                                </svg>
+                            </a>
+                        </td>
+                        <!-- edit -->
+                        <td>
+                            <a th:href="@{|/giullstravells/categorie/edit/${item.id}|}" type="button"
+                                class="btn btn-sm btn-outline-success shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+                                </svg>
+                            </a>
+                        </td>
+                        <!-- delete -->
+                        <td>
+                            <form th:action="@{/giullstravells/categorie/delete/{id}(id=${item.id})}" method="post">
+                                <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm"
+                                    onclick="return confirm('Desideri eliminare la Categoria?')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- /tabella -->
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+    <!-- app JS -->
+    <script th:src="@{/app.js}"></script>
+</body>
+
+</html>

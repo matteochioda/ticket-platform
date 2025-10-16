@@ -1,0 +1,56 @@
+.numans-regular {
+    font-family: "Numans", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+
+
+.gradient {
+    background: #ffffff;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 30%, rgba(163, 252, 255, 1) 100%);
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+.fs-12 {
+    font-size: 12px;
+}
+
+.select-button-group select {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.select-button-group button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.username-centered {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 500;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom,
+            #9be7ff 0%,
+            #b3fff0 15%,
+            #ffffff 50%,
+            #ffffff 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    color: #222;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+

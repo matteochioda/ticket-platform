@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Numans&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <!-- app.css -->
+    <link rel="stylesheet" th:href="@{/app.css}">
+    <title>Tickets</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav th:replace="navbar :: navbar('Categorie')"></nav>
+
+    <div class="container bg-white shadow-lg mt-5 py-5 px-5 rounded-3">
+        <div class="content">
+            <!-- titolo creazione -->
+            <h2 class="text-center mb-5 numans-regular">Modifica: "<span th:text="${categoria.nome}"></span>"</h2>
+            <hr />
+
+            <form class="row g-3" method="post" th:action="@{/giullstravells/categorie/edit/{id}(id=${categoria.id})}" th:object="${categoria}">
+                <div class="row">
+                    <!-- colonna sinistra -->
+                    <div class="col-8">
+                        <!-- titolo -->
+                        <div class="mb-3 mt-4">
+                            <label for="titolo" class="form-label">Nome <span
+                                    class="text-danger fw-light">*</span></label>
+                            <input type="text" class="form-control shadow" id="titolo" th:field="*{nome}"
+                                th:errorClass="is-invalid">
+                            <div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- descrizione -->
+                        <div class="mb-3">
+                            <label for="descrizione" class="form-label">Descrizione <span
+                                    class="text-danger fw-light">*</span></label>
+                            <textarea class="form-control shadow" id="descrizione" th:field="*{descrizione}"
+                                th:errorClass="is-invalid" rows="5"></textarea>
+                            <div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- buttons -->
+                <div class="col-12 mt-4 mb-4">
+                    <button type="submit" class="btn btn-outline-success shadow d-inline-flex align-items-center me-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                        </svg>
+                        <span class="ms-2">Conferma modifica</span>
+                    </button>
+                </div>
+            </form>
+
+            <hr />
+            <a th:href="@{/giullstravells/tickets}" class="text-decoration-none">← Torna alla lista delle Categorie</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+    <!-- app.js -->
+    <script th:src="@{/app.js}"></script>
+</body>
+
+</html>
