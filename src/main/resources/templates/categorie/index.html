@@ -22,7 +22,7 @@
     <!-- navbar -->
     <nav th:replace="navbar :: navbar('Categorie')"></nav>
     <!-- /navbar -->
-    <div class="container bg-white shadow-lg mt-5 py-5 px-5 rounded-3">
+    <div class="container bg-white shadow-lg my-5 py-5 px-5 rounded-3">
         <div class="content">
             <!-- h1 -->
             <h2 class="text-center mb-5 numans-regular">Categorie</h2>
@@ -55,12 +55,13 @@
                     <path fill-rule="evenodd"
                         d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
                 </svg>
-                <span class="ms-2">Crea una nuova categoria</span>
+                <span class="ms-2">Crea Categoria</span>
             </a>
             <!-- tabella -->
             <div th:unless="${listaCategorie.size > 0}" class="alert alert-primary text-center shadow" role="alert">Nessuna Categoria trovata</div>
-            <table th:if="${listaCategorie.size > 0}"
-                class="table table-light table-hover shadow-lg align-middle">
+            <div class="table-responsive mb-0 shadow-lg">
+                <table th:if="${listaCategorie.size > 0}"
+                class="table table-light table-hover shadow-lg table-striped align-middle mb-0">
                 <thead>
                     <tr>
                         <!-- contatore -->
@@ -85,8 +86,8 @@
                         <td>
                             <a th:href="@{|/giullstravells/categorie/show/${item.id}|}" type="button"
                                 class="btn btn-sm btn-outline-primary shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-book" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book"
+                                    viewBox="0 0 16 16">
                                     <path
                                         d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783" />
                                 </svg>
@@ -118,10 +119,30 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>
+                </table>
+            </div>
+            
             <!-- /tabella -->
         </div>
     </div>
+    <!-- footer -->
+    <footer class="shadow-lg">
+        <div class="container">
+            <div class="d-flex row justify-content-between align-items-center py-4 gap-2">
+                <div class="col-12 col-lg-3 fs-14 text-center text-lg-start">
+                    <div>Mail: servizio_clienti@giullstravells.it</div>
+                </div>
+                <div class="col-12 col-lg-3 text-lg-center text-center">
+                    <a class="navbar-brand" th:href="@{/giullstravells/tickets}">
+                        <img class="logo-width" th:src="@{/img/logo.png}" alt="logo">
+                    </a>
+                </div>
+                <div class="col-12 col-lg-3 text-lg-end fs-14 text-center">
+                    <div>Phone: +39 02 75 40 7660</div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap Bundle with Popper -->
     <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>

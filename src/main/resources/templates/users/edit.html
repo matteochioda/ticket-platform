@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Numans&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <!-- app.css -->
+    <link rel="stylesheet" th:href="@{/app.css}">
+    <title>Tickets</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav th:replace="navbar :: navbar('Utenti')"></nav>
+
+    <div class="container bg-white shadow-lg my-5 py-5 px-5 rounded-3">
+        <div class="content">
+            <!-- titolo creazione -->
+            <h2 class="text-center mb-5 numans-regular">Modifica Utente: <span th:text="|${user.cognome} ${user.nome}|"></span></h2>
+            <hr />
+
+            <form class="row g-3" method="post" th:action="@{|/users/edit/${user.id}|}" th:object="${user}">
+                <div class="row">
+                    <!-- nome -->
+                    <div class="mt-4 my-3 col-12 col-lg-8">
+                        <label for="titolo" class="form-label">Nome <span class="text-danger fw-light">*</span></label>
+                        <input type="text" class="form-control shadow" id="titolo" th:field="*{nome}"
+                            th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('nome')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- cognome -->
+                    <div class="mb-3 mb-3 col-12 col-lg-8">
+                        <label for="titolo" class="form-label">Cognome <span
+                                class="text-danger fw-light">*</span></label>
+                        <input type="text" class="form-control shadow" id="titolo" th:field="*{cognome}"
+                            th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('cognome')}" class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('cognome')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- username -->
+                    <div class="mb-3 col-12 col-lg-8">
+                        <label for="titolo" class="form-label">Username <span
+                                class="text-danger fw-light">*</span></label>
+                        <input type="text" class="form-control shadow" id="titolo" th:field="*{username}"
+                            th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('username')}" class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('username')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- password -->
+                    <div class="mb-3 col-12 col-lg-8">
+                        <label for="password" class="form-label">Password <span class="text-danger fw-light">*</span></label>
+                        <input type="hidden" th:field="*{password}"/>
+                        <input type="text" class="form-control shadow" id="passwordMasked" value="********" disabled>
+                    </div>
+                    <!-- ruoli -->
+                    <div class="mb-5 col-12 col-lg-5">
+                        <label for="ruolo" class="form-label">Assegna ruolo <span class="text-danger fw-light">*</span></label>
+                        <select th:field="*{ruoli}" class="form-select form-select shadow" th:errorClass="is-invalid">
+                            <option value="" disabled selected>Assegna ruolo</option>
+                            <option th:each="ruolo : ${ruoli}" th:value="${ruolo.id}" th:field="*{ruoli}" th:text="${ruolo.nome}"></option>
+                        </select>
+                        <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex flex-wrap">
+                            <!-- button crea -->
+                            <button type="submit"
+                                class="col-12 col-lg-3 btn btn-outline-success shadow d-inline-flex align-items-center me-2 mb-2 justify-content-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z" />
+                                </svg>
+                                <span class="ms-2">Conferma modifica</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <hr class="mt-4 mb-5">
+            <a th:href="@{/users}" class="text-decoration-none">← Torna alla lista degli Utenti</a>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer class="shadow-lg">
+        <div class="container">
+            <div class="d-flex row justify-content-between align-items-center py-4 gap-2">
+                <div class="col-12 col-lg-3 fs-14 text-center text-lg-start">
+                    <div>Mail: servizio_clienti@giullstravells.it</div>
+                </div>
+                <div class="col-12 col-lg-3 text-lg-center text-center">
+                    <a class="navbar-brand" th:href="@{/giullstravells/tickets}">
+                        <img class="logo-width" th:src="@{/img/logo.png}" alt="logo">
+                    </a>
+                </div>
+                <div class="col-12 col-lg-3 text-lg-end fs-14 text-center">
+                    <div>Phone: +39 02 75 40 7660</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+    <!-- app.js -->
+    <script th:src="@{/app.js}"></script>
+</body>
+
+</html>

@@ -25,7 +25,7 @@ public class Categoria {
 
     @NotNull
     @NotBlank(message = "Nome is mandatory")
-    @Column(nullable=false)
+    @Column(nullable=false, unique=true)
     private String nome;
 
     @NotNull

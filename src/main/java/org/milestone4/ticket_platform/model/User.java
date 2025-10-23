@@ -19,6 +19,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -33,31 +35,38 @@ public class User {
 
     @NotNull
     @NotBlank(message = "Nome is mandatory")
+    @Size(min = 3, max = 30, message = "Il nome deve contenere tra 3 e 30 caratteri")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$", message = "Il nome può contenere solo lettere")
     @Column(nullable=false)
     private String nome;
 
     @NotNull
     @NotBlank(message = "Cognome is mandatory")
+    @Size(min = 3, max = 30, message = "Il cognome deve contenere tra 3 e 30 caratteri")
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$", message = "Il cognome può contenere solo lettere")
     @Column(nullable=false)
     private String cognome;
 
     @NotNull
     @NotBlank(message = "Email is mandatory")
+    @Size(min = 3, max = 20, message = "Lo username deve contenere tra 3 e 20 caratteri")
+    @Pattern(regexp = "^[A-Za-z0-9_.-]+$", message = "Lo username può contenere solo lettere, numeri, punti e trattini")
     @Column(nullable=false, unique=true)
     private String username;
 
     @NotNull
-    @NotBlank(message = "Password is mandatory")
+    @Size(min = 8, message = "La password deve contenere almeno 8 caratteri")
+    @Pattern(regexp = "^(\\{noop\\})?(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+$",
+    message = "La password deve contenere almeno una lettera maiuscola, una minuscola, un numero e un carattere speciale")
     @Column(nullable=false)
     private String password;
 
-    @NotNull
     @CreationTimestamp
     @Column(nullable=false, updatable=false)
     private LocalDateTime registrationDate;
 
     @NotNull
-    private String stato = "attivo";
+    private String stato = "non_attivo";
     
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<Nota> note = new ArrayList<>();

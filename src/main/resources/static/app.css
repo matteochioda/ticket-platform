@@ -4,8 +4,6 @@
     font-style: normal;
 }
 
-
-
 .gradient {
     background: #ffffff;
     background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 30%, rgba(163, 252, 255, 1) 100%);
@@ -28,19 +26,24 @@
     border-bottom-left-radius: 0;
 }
 
-.username-centered {
+.username-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     font-weight: 500;
 }
 
+.dimensioni-cerchio {
+    width: 30px;
+    height: 30px;
+}
+
 body {
     min-height: 100vh;
     margin: 0;
     background: linear-gradient(to bottom,
-            #9be7ff 0%,
-            #b3fff0 15%,
+            #ffcbcb 0%,
+            #ffdcdc 15%,
             #ffffff 50%,
             #ffffff 100%);
     background-attachment: fixed;
@@ -54,3 +57,35 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.logo-width {
+    width: 100px;
+}
+
+.footer{
+    height: 100px;
+    background-color: #ffffff;
+    margin-top: 100px;
+}
+
+.height-100 {
+    height: 100px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.container.bg-white {
+    flex: 1;
+}
+
+footer {
+    margin-top: 3rem;
+}

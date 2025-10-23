@@ -22,9 +22,11 @@ public class SecurityConfiguration {
             .requestMatchers(HttpMethod.POST, "/giullstravells/tickets/**").hasAnyAuthority("OPERATORE", "ADMIN")
             .requestMatchers("/giullstravells/categorie", "/giullstravells/categorie/**").hasAuthority("ADMIN")
             .requestMatchers("/giullstravells/tickets", "/giullstravells/tickets/**").hasAnyAuthority("OPERATORE", "ADMIN")
+            .requestMatchers("/users/**").hasAnyAuthority("OPERATORE", "ADMIN")
             .requestMatchers("/**").permitAll()
             .and().formLogin()
-            .and().logout();
+            .and().logout()
+            .and().csrf().disable();
         return http.build();
     }
 

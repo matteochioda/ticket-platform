@@ -5,6 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +21,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="tickets")
@@ -30,6 +35,7 @@ public class Ticket {
 
     @NotNull
     @NotBlank(message = "Titolo is mandatory")
+    @Size(min = 3, max = 100, message = "Il titolo deve contenere tra 3 e 100 caratteri")
     @Column(nullable=false)
     private String titolo;
 
@@ -52,17 +58,20 @@ public class Ticket {
     @ManyToOne
     @NotNull(message="Categoria is mandatory")
     @JoinColumn(name="categoria_id")
+    @JsonIgnoreProperties("tickets")
     private Categoria categoria;
 
     @ManyToOne
     @JoinColumn(name="creato_da")
+    @JsonBackReference(value="creatoDa")
     private User creatoDa;
 
     @ManyToOne
     @JoinColumn(name="assegnato_a")
+    @JsonBackReference(value="assegnatoA")
     private User assegnatoA;
 
-
+    
 
     // GETTERS & SETTERS
 
@@ -140,6 +149,7 @@ public class Ticket {
 
 
     // METODI 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     public String getFormattedCreatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
         return createdAt.format(formatter);
