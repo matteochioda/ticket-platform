@@ -59,7 +59,7 @@
                     <span class="ms-2">Crea Utente</span>
                 </a>
                 <!-- filtro nome utente -->
-                <div class="col-4">
+                <div class="col-12 col-lg-4 mb-4">
                     <form method="get" th:action="@{/users}">
                         <div class="input-group">
                             <input class="form-control" type="text" name="keyword" placeholder="Cerca per nome...">
@@ -89,9 +89,9 @@
                             <!-- dettagli -->
                             <th scope="col">Username</th>
                             <!-- edit -->
-                            <th scope="col">Modifica</th>
+                            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Modifica</th>
                             <!-- delete -->
-                            <th scope="col">Elimina</th>
+                            <th sec:authorize="hasAuthority('ADMIN')" scope="col">Elimina</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +105,7 @@
                             <!-- username -->
                             <td th:text="${item.username}"></td>
                             <!-- edit -->
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{|/users/edit/${item.username}|}" type="button"
                                     class="btn btn-sm btn-outline-success shadow-sm">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -116,7 +116,7 @@
                                 </a>
                             </td>
                             <!-- delete -->
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <form th:action="@{|/users/delete/${item.id}|}" method="post">
                                     <button type="submit" class="btn btn-sm btn-outline-danger shadow-sm"
                                         onclick="return confirm('Desideri eliminare l\'Utente?')">
