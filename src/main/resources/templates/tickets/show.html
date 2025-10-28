@@ -51,12 +51,12 @@
                             <span th:if="*{stato == 'COMPLETATO'}" class="d-inline-block bg-success bg-opacity-75 rounded-circle dimensioni-cerchio"></span>
                         </div>
                         <!-- select e button coferma-->
-                        <select th:if="${stessoUtente}" class="form-select form-select-sm text-center mt-2" name="stato">
+                        <select th:if="${stessoUtente} and ${user.stato} == 'attivo'" class="form-select form-select-sm text-center mt-2" name="stato">
                             <option th:value="DA_GESTIRE" th:selected="${ticket.stato == 'DA_GESTIRE'}">da gestire</option>
                             <option th:value="IN_CORSO" th:selected="${ticket.stato == 'IN_CORSO'}">in corso...</option>
                             <option th:value="COMPLETATO" th:selected="${ticket.stato == 'COMPLETATO'}">completato</option>
                         </select>
-                        <button th:if="${stessoUtente}"
+                        <button th:if="${stessoUtente} and ${user.stato} == 'attivo'"
                             class="btn w-100 btn-sm btn-outline-success d-flex align-items-center justify-content-center mt-2" type="submit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg"
                                 viewBox="0 0 16 16">
@@ -123,7 +123,11 @@
             <!-- info creazione -->
             <ul class="mb-5 fs-14">
                 <li th:text="|Data di creazione: ${ticket.getFormattedCreatedAt}|"></li>
-                <li th:if="${ticket.assegnatoA != null}">Assegato a: <a class="text-decoration-none" th:href="@{|/users/${ticket.assegnatoA.getUsername()}}|" th:text="|${ticket.assegnatoA.nome} ${ticket.assegnatoA.cognome}|"></a></li>
+                <li th:if="${ticket.assegnatoA != null}">Assegato a: 
+                    <a class="text-decoration-none" th:href="@{|/users/${ticket.assegnatoA.getUsername()}}|" th:text="|${ticket.assegnatoA.nome} ${ticket.assegnatoA.cognome}|"></a>
+                    <span th:if="${user.stato} == 'attivo'"> - [<span class="text-success">Attivo</span>]</span>
+                    <span th:if="${user.stato} == 'non_attivo'"> - [<span class="text-danger">Non attivo</span>]</span>
+                </li>
                 <li th:unless="${ticket.assegnatoA != null}">Operatore: <span class="text-danger">Da assegnare</span></li>
                 <li>Creato da: <a class="text-decoration-none" th:href="@{|/users/${ticket.creatoDa.getUsername()}}|" th:text="|${ticket.creatoDa.nome} ${ticket.creatoDa.cognome}|"></a></li>
             </ul>

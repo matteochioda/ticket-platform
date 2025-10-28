@@ -48,7 +48,7 @@ public class User {
     private String cognome;
 
     @NotNull
-    @NotBlank(message = "Email is mandatory")
+    @NotBlank(message = "Username is mandatory")
     @Size(min = 3, max = 20, message = "Lo username deve contenere tra 3 e 20 caratteri")
     @Pattern(regexp = "^[A-Za-z0-9_.-]+$", message = "Lo username può contenere solo lettere, numeri, punti e trattini")
     @Column(nullable=false, unique=true)
